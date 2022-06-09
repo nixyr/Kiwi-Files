@@ -47,7 +47,7 @@ UserInputService.InputEnded:Connect(function(input)
 	end)
 
 PageFolder.Name = "TabFolder"
-PageFolder.Parent = PageFrame
+PageFolder.Parent = SectionFrame
 
 title = title or "Kiwi Library"
 
@@ -193,7 +193,7 @@ local tabBtn = Instance.new("TextButton")
 
 TabText = TabText or "Kiwi Tab"
 
-tabBtnFrame.Name = "ButtonFrame"
+tabBtnFrame.Name = "TabBtnFrame"
 tabBtnFrame.Parent = PageFrame
 tabBtnFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 tabBtnFrame.BackgroundTransparency = 1.000
@@ -217,7 +217,7 @@ local NewPage = Instance.new("ScrollingFrame")
 local PageList = Instance.new("UIListLayout")
 
 NewPage.Name = TabText
-NewPage.Parent = SectionFrame
+NewPage.Parent = NewPage
 NewPage.Active = true
 NewPage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 NewPage.BackgroundTransparency = 1.000
@@ -310,7 +310,7 @@ callback = callback or function() end
 Button.Name = "KiwiButton "..btntext
 Button.Parent = TabFrame
 Button.BackgroundColor3 = Color3.fromRGB(120, 90., 60)
-Button.Size = UDim2.new(0, 380, 0, 30)
+Button.Size = UDim2.new(0, 280, 0, 30)
 Button.AutoButtonColor = false
 Button.TextColor3 = Color3.fromRGB(255, 255, 255)
 Button.ZIndex = 2
@@ -326,7 +326,9 @@ Button.MouseButton1Click:Connect(function()
 	end
 	end)
 
-
+ButtonCorner.CornerRadius = UDim.new(0, 3)
+ButtonCorner.Name = "Corner"
+ButtonCorner.Parent = Button
 
 end
 return ItemHandler
