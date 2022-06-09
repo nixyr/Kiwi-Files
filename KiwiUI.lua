@@ -8,6 +8,7 @@ function Kiwi.Window(title)
   local PageFrame = Instance.new("ScrollingFrame")
   local MainFrameCorner = Instance.new("UICorner")
   local TopBarCorner = Instance.new("UICorner")
+  local KiwiPageCorner = Instance.new("UICorner")
   local SectionCorner = Instance.new("UICorner")
   local UIListLayout = Instance.new("UIListLayout")
   local PageFolder = Instance.new("Folder")
@@ -78,8 +79,8 @@ end)
   SectionFrame.Parent = MainFrame
   SectionFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
   SectionFrame.Visible = false
-  SectionFrame.Position = UDim2.new(0, 10, 0, 70)
-  SectionFrame.Size = UDim2.new(0, 400, 0, 200)
+  SectionFrame.Position = UDim2.new(0, 10, 0, 40)
+  SectionFrame.Size = UDim2.new(0, 290, 0, 230)
   
   SectionCorner.Name = "Corner"
   SectionCorner.Parent = SectionFrame
@@ -89,7 +90,7 @@ end)
   KiwiClose.Parent = TopBar
   KiwiClose.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
   KiwiClose.BackgroundTransparency = 1.000
-  KiwiClose.Position = UDim2.new(0, 395, 0, 10)
+  KiwiClose.Position = UDim2.new(0, 395, 0, 5)
   KiwiClose.Size = UDim2.new(0, 15,0, 15)
   KiwiClose.Text = ""
   KiwiClose.TextColor3 = Color3.fromRGB(190, 190, 190)
@@ -121,7 +122,7 @@ end)
   KiwiMinimize.Parent = TopBar
   KiwiMinimize.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
   KiwiMinimize.BackgroundTransparency = 1.000
-  KiwiMinimize.Position = UDim2.new(0, 370, 0, 10)
+  KiwiMinimize.Position = UDim2.new(0, 370, 0, 6)
   KiwiMinimize.Size = UDim2.new(0, 15,0, 15)
   KiwiMinimize.Text = ""
   KiwiMinimize.TextColor3 = Color3.fromRGB(190, 190, 190)
@@ -136,8 +137,20 @@ end)
         .5,
         true
       )
-      SectionFrame.Visible = false
-			PageFrame.Visible = false
+      SectionFrame:TweenSize(
+        UDim2.new(0, 420, 0, 0),
+        Enum.EasingDirection.Out,
+        Enum.EasingStyle.Quart,
+        .5,
+        true
+      )
+      PageFrame:TweenSize(
+        UDim2.new(0, 420, 0, 0),
+        Enum.EasingDirection.Out,
+        Enum.EasingStyle.Quart,
+        .5,
+        true
+      )
       minimized = true
    else
      MainFrame:TweenSize(
@@ -167,72 +180,101 @@ end)
   PageFrame.Parent = MainFrame
   PageFrame.BorderSizePixel = 0
   PageFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-  PageFrame.Position = UDim2.new(0, 0, 0, 30)
-  PageFrame.Size = UDim2.new(0, 420, 0, 30)
+  PageFrame.Position = UDim2.new(0, 305, 0, 40)
+  PageFrame.Size = UDim2.new(0, 110, 0, 230)
   PageFrame.ZIndex = 2
-  PageFrame.ScrollingDirection = Enum.ScrollingDirection.X
+  PageFrame.ScrollingDirection = Enum.ScrollingDirection.Y
   PageFrame.ScrollBarThickness = 0
   
-  UIListLayout.Name = "UIListLayout"
-	UIListLayout.Parent = PageFrame
-	UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+  KiwiPageCorner.Name = "Corner"
+  KiwiPageCorner.Parent = PageFrame
+  KiwiPageCorner.CornerRadius = UDim.new(0, 5)
+  
+  UIListLayout.Parent = PageFrame
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	UIListLayout.Padding = UDim.new(0, 10)
+	UIListLayout.Padding = UDim.new(0, 5)
   
   local TabHandler = {}
   
 function TabHandler:NewTab(TabText)
-  local TabBtn = Instance.new("TextButton")
-  local TabHandlerFrame = Instance.new("ScrollingFrame")
-  local UIGridLayout_2 = Instance.new("UIGridLayout")
-  local UICorner = Instance.new("UICorner")
+  local tabBtnFrame = Instance.new("Frame")
+  local tabBtn = Instance.new("TextButton")
   
-  TabBtn.Name = TabText.."Page"
-  TabBtn.Parent = PageFrame
-  TabBtn.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-  TabBtn.BackgroundTransparency = 1.000
-  TabBtn.Size = UDim2.new(0, 20, 0, 10)
-  TabBtn.Text = TabText
-  TabBtn.TextSize = 10.000
-  TabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-  TabBtn.Font = Enum.Font.GothamSemibold
+  TabText = TabText or "Kiwi Tab"
   
-  TabHandlerFrame.Name = TabText.."Section"
-  TabHandlerFrame.Parent = SectionFrame
-  TabHandlerFrame.Active = true
-  TabHandlerFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  TabHandlerFrame.BackgroundTransparency = 1.000
-  TabHandlerFrame.BorderSizePixel = 0
-  TabHandlerFrame.Position = UDim2.new(0.0170000009, 0, 0.0359999985, 0)
-  TabHandlerFrame.ScrollingDirection = Enum.ScrollingDirection.Y
-  TabHandlerFrame.ScrollBarThickness = 2
-  TabHandlerFrame.CanvasSize = UDim2.new(0, 0, 1.1,0)
-  
-  UIGridLayout_2.Parent = TabHandlerFrame
-  UIGridLayout_2.FillDirection = Enum.FillDirection.Vertical
-  UIGridLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-  UIGridLayout_2.CellSize = UDim2.new(0, 70, 0, 23)
-  UIGridLayout_2.StartCorner = Enum.StartCorner.TopRight
+  tabBtnFrame.Name = "ButtonFrame"
+	tabBtnFrame.Parent = PageFrame
+	tabBtnFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	tabBtnFrame.BackgroundTransparency = 1.000
+	tabBtnFrame.Size = UDim2.new(0, 110, 0, 20)
+	tabBtnFrame.ZIndex = 2
  
- TabHandlerFrame.ChildAdded:Connect(function()
- if #TabHandlerFrame:GetChildren() > 13 then
-  TabHandlerFrame.CanvasSize = UDim2.new(0, 0,TabHandlerFrame.CanvasSize.Y.Scale + 0.10,0)
- end
-end)
+  tabBtn.Name = "TabButton"
+	tabBtn.Parent = tabBtnFrame
+	tabBtn.BackgroundColor3 = Color3.fromRGB(166, 248, 255)
+	tabBtn.BackgroundTransparency = 1.000
+	tabBtn.Position = UDim2.new(0.245534033, 0, 0, 0)
+	tabBtn.Size = UDim2.new(0, 101, 0, 20)
+	tabBtn.ZIndex = 2
+	tabBtn.Font = Enum.Font.GothamBold
+	tabBtn.Text = TabText
+	tabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	tabBtn.TextSize = 10.000
+	tabBtn.TextXAlignment = Enum.TextXAlignment.Left
  
- TabBtn.MouseButton1Click:Connect(function()
-    for i,v in next,TabHandlerFrame:GetChildren() do
-    v.Visible = false
- end
-    for i,t in next, PageFrame:GetChildren() do
-    if t.ClassName ~= "UIGridLayout" then
-    t.TextColor3 = Color3.fromRGB(255, 255, 255)
- end
-    TabBtn.TextColor3 = Color3.fromRGB(150, 150, 150)
- end
-    TabHandlerFrame.Visible = true
-    play("rbxassetid://1412830636")
-end)
+	local NewPage = Instance.new("ScrollingFrame")
+	local PageList = Instance.new("UIListLayout")
+	
+	NewPage.Name = TabText
+	NewPage.Parent = PageFolder
+	NewPage.Active = true
+	NewPage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	NewPage.BackgroundTransparency = 1.000
+	NewPage.BorderSizePixel = 0
+	NewPage.Size = UDim2.new(1, 0, 1, 0)
+	NewPage.ZIndex = 2
+	NewPage.ScrollBarThickness = 0
+	NewPage.Visible = false
+	NewPage.ScrollingDirection = Enum.ScrollingDirection.Y
+	
+	PageList.Name = "KiwiList"
+	PageList.Parent = NewPage
+	PageList.SortOrder = Enum.SortOrder.LayoutOrder
+	PageList.Padding = UDim.new(0, 3)
+	
+	local function UpdateSize()
+	local cS = sectionList.AbsoluteContentSize
+
+	game.TweenService:Create(NewPage, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+	  CanvasSize = UDim2.new(0,cS.X,0,cS.Y)
+	}):Play()
+end
+	UpdateSize()
+	NewPage.ChildAdded:Connect(UpdateSize)
+	NewPage.ChildRemoved:Connect(UpdateSize)
+
+	tabBtn.MouseButton1Click:Connect(function()
+	  UpdateSize()
+	  for i,v in next, PageFolder:GetChildren() do
+	  UpdateSize()
+	  v.Visible = false
+end
+  NewPage.Visible = true
+  for i,v in next, PageFrame:GetChildren() do
+  if v:IsA("Frame") then
+  for i,v in next, v:GetChildren() do
+  if v:IsA("TextButton") then
+  game.TweenService:Create(v, TweenInfo.new(0.18, Enum.EasingStyle.Quint, Enum.EasingDirection.In), {
+    TextColor3 = Color3.fromRGB(56, 56, 56)
+  }):Play()
+end
+end
+end
+end
+  game.TweenService:Create(tabBtn, TweenInfo.new(0.18, Enum.EasingStyle.Quint, Enum.EasingDirection.In), {
+    TextColor3 = Color3.fromRGB(255, 255, 255)
+  }):Play()
+  end)
  
 local ItemHandler = {}
   
@@ -246,7 +288,7 @@ function ItemHandler:NewButton(btntext, callback)
   callback = callback or function() end
   
   Button.Name = "KiwiButton"..btntext
-  Button.Parent = TabHandlerFrame
+  Button.Parent = NewPage
   Button.BackgroundColor3 = Color3.fromRGB(120, 90., 60)
   Button.Size = UDim2.new(0, 380, 0, 30)
   Button.AutoButtonColor = false
