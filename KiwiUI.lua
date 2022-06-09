@@ -137,20 +137,8 @@ end)
         .5,
         true
       )
-      SectionFrame:TweenSize(
-        UDim2.new(0, 420, 0, 0),
-        Enum.EasingDirection.Out,
-        Enum.EasingStyle.Quart,
-        .5,
-        true
-      )
-      PageFrame:TweenSize(
-        UDim2.new(0, 420, 0, 0),
-        Enum.EasingDirection.Out,
-        Enum.EasingStyle.Quart,
-        .5,
-        true
-      )
+      SectionFrame.Visible = false
+			PageFrame.Visible = false
       minimized = true
    else
      MainFrame:TweenSize(
@@ -276,6 +264,36 @@ end
   }):Play()
   end)
  
+ 
+local SectionHandler = {}
+
+function SectionHandler:NewSection(SectionName)
+	
+ local TabFrame = Instance.new("Frame")
+ local MainCorner = Instance.new("UICorner")
+ 
+ local sectionInnerList = Instance.new("UIListLayout")
+ 
+	sectionInnerList.Name = "sectionInnerList"
+	sectionInnerList.Parent = TabFrame
+	sectionInnerList.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	sectionInnerList.SortOrder = Enum.SortOrder.LayoutOrder
+	sectionInnerList.Padding = UDim.new(0, 3)
+	 
+	SectionName = SectionName or "Kiwi Section"
+	 
+	TabFrame.Name = "TabFrame"
+	TabFrame.Parent = newPage
+	TabFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	TabFrame.Position = UDim2.new(0, 0, 7.08064434e-08, 0)
+	TabFrame.Size = UDim2.new(1, 0,0, 36)
+	TabFrame.ZIndex = 2
+	TabFrame.ClipsDescendants = true
+	
+	MainCorner.CornerRadius = UDim.new(0, 5)
+	MainCorner.Name = "MainCorner"
+	MainCorner.Parent = TabFrame
+	
 local ItemHandler = {}
   
 function ItemHandler:NewButton(btntext, callback)
@@ -288,7 +306,7 @@ function ItemHandler:NewButton(btntext, callback)
   callback = callback or function() end
   
   Button.Name = "KiwiButton"..btntext
-  Button.Parent = NewPage
+  Button.Parent = TabFrame
   Button.BackgroundColor3 = Color3.fromRGB(120, 90., 60)
   Button.Size = UDim2.new(0, 380, 0, 30)
   Button.AutoButtonColor = false
@@ -312,5 +330,7 @@ end
 return ItemHandler
 end
 return TabHandler
+end
+return SectionHandler
 end
 return Kiwi
