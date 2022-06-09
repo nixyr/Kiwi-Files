@@ -55,7 +55,7 @@ KiwiLibrary.Name = title or "KiwiLibrary"
 KiwiLibrary.Parent = game.CoreGui
 KiwiLibrary.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-MainFrame.Name = title.."Frame" or "KiwiFrame"
+MainFrame.Name = title or "KiwiFrame"
 MainFrame.Parent = KiwiLibrary
 MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 MainFrame.Position = UDim2.new(0.048, 0,0.075, 0)
@@ -217,7 +217,7 @@ local NewPage = Instance.new("ScrollingFrame")
 local PageList = Instance.new("UIListLayout")
 
 NewPage.Name = TabText
-NewPage.Parent = PageFolder
+NewPage.Parent = SectionFrame
 NewPage.Active = true
 NewPage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 NewPage.BackgroundTransparency = 1.000
@@ -307,7 +307,7 @@ local Debounce = false
 btntext = btntext or "KiwiButton"
 callback = callback or function() end
 
-Button.Name = "KiwiButton"..btntext
+Button.Name = "KiwiButton "..btntext
 Button.Parent = TabFrame
 Button.BackgroundColor3 = Color3.fromRGB(120, 90., 60)
 Button.Size = UDim2.new(0, 380, 0, 30)
