@@ -6,6 +6,7 @@ local MainFrame = Instance.new("Frame")
 local TopBar = Instance.new("Frame")
 local SectionFrame = Instance.new("Frame")
 local PageFrame = Instance.new("ScrollingFrame")
+local PageFrameMain = Instance.new("Frame")
 local MainFrameCorner = Instance.new("UICorner")
 local TopBarCorner = Instance.new("UICorner")
 local KiwiPageCorner = Instance.new("UICorner")
@@ -21,7 +22,6 @@ local MinimizeIcon = Instance.new("ImageLabel")
 local UserInputService = game:GetService("UserInputService")
 local Camera = workspace:WaitForChild("Camera")
 local minimized = false
-local mininizedebounce = false
 
 --[Drag Script]--
 local DragMousePosition
@@ -98,18 +98,8 @@ KiwiClose.TextColor3 = Color3.fromRGB(190, 190, 190)
 KiwiClose.Visible = true
 KiwiClose.AutoButtonColor = false
 KiwiClose.MouseButton1Click:Connect(function()
-	MainFrame:TweenSize(
-		UDim2.new(0, 0, 0, 0),
-		Enum.EasingDirection.Out,
-		Enum.EasingStyle.Bounce,
-		.5,
-		true
-	)
-	wait(.3)
-	SectionFrame.Visible = false
-	PageFrame.Visible = false
 	KiwiLibrary:Destroy()
-	end)
+end)
 
 CloseIcon.Name = "CloseIcon"
 CloseIcon.Parent = KiwiClose
@@ -132,8 +122,6 @@ KiwiMinimize.TextColor3 = Color3.fromRGB(190, 190, 190)
 KiwiMinimize.Visible = true
 KiwiMinimize.AutoButtonColor = false
 KiwiMinimize.MouseButton1Click:Connect(function()
-if not mininizedebounce then
-mininizedebounce = true
 	if minimized == false then
 	MainFrame:TweenSize(
 		UDim2.new(0, 420, 0, 30),
@@ -157,9 +145,6 @@ mininizedebounce = true
 	SectionFrame.Visible = true
 	PageFrame.Visible = true
 	minimized = false
-	wait(1)
-	mininizedebounce = false
-	end
 	end
 	end)
 
@@ -173,19 +158,26 @@ MinimizeIcon.Image = "http://www.roblox.com/asset/?id=6035067836"
 MinimizeIcon.ImageColor3 = Color3.fromRGB(190, 190, 190)
 MinimizeIcon.Visible = true
 
+PageFrameMain.Name = "MainPage"
+PageFrameMain.Parent = MainFrame
+PageFrameMain.Size = UDim2.new(0, 110, 0, 230)
+PageFrameMain.Position = UDim2.new(0, 305, 0, 40)
+PageFrameMain.BackgroundColor3 = Color3.fromRGB(30, e0, 30)
+
 PageFrame.Name = "KiwiPages"
 PageFrame.Active = true
-PageFrame.Parent = MainFrame
+PageFrame.Parent = PageFrameMain
 PageFrame.BorderSizePixel = 0
 PageFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-PageFrame.Position = UDim2.new(0, 305, 0, 40)
-PageFrame.Size = UDim2.new(0, 110, 0, 230)
+PageFrame.BackgroundTransparency = 1.000
+PageFrame.Position = UDim2.new(0, 0, 0, 10)
+PageFrame.Size = UDim2.new(1, 0, 0, 1)
 PageFrame.ZIndex = 2
 PageFrame.ScrollingDirection = Enum.ScrollingDirection.Y
 PageFrame.ScrollBarThickness = 1
 
 KiwiPageCorner.Name = "Corner"
-KiwiPageCorner.Parent = PageFrame
+KiwiPageCorner.Parent = PageFrameMain
 KiwiPageCorner.CornerRadius = UDim.new(0, 5)
 
 UIListLayout.Parent = PageFrame
