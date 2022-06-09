@@ -78,7 +78,7 @@ end)
   SectionFrame.Name = "KiwiSectionFrame"
   SectionFrame.Parent = MainFrame
   SectionFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-  SectionFrame.Visible = false
+  SectionFrame.Visible = true
   SectionFrame.Position = UDim2.new(0, 10, 0, 40)
   SectionFrame.Size = UDim2.new(0, 290, 0, 230)
   
@@ -243,7 +243,7 @@ function TabHandler:NewTab(TabText)
 	PageList.Padding = UDim.new(0, 3)
 	
 	local function UpdateSize()
-	local cS = sectionList.AbsoluteContentSize
+	local cS = PageList.AbsoluteContentSize
 
 	game.TweenService:Create(NewPage, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 	  CanvasSize = UDim2.new(0,cS.X,0,cS.Y)
