@@ -221,7 +221,7 @@ function TabHandler:NewTab(TabText)
 end)
  
  TabBtn.MouseButton1Click:Connect(function()
-    for i,v in next,SectionFrame:GetChildren() do
+    for i,v in next,TabHandlerFrame:GetChildren() do
     v.Visible = false
  end
     for i,t in next, PageFrame:GetChildren() do
