@@ -217,7 +217,7 @@ local NewPage = Instance.new("ScrollingFrame")
 local PageList = Instance.new("UIListLayout")
 
 NewPage.Name = TabText
-NewPage.Parent = NewPage
+NewPage.Parent = PageFolder
 NewPage.Active = true
 NewPage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 NewPage.BackgroundTransparency = 1.000
