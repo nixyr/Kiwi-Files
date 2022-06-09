@@ -188,7 +188,7 @@ function TabHandler:NewTab(TabText)
   TabBtn.BackgroundTransparency = 1.000
   TabBtn.Size = UDim2.new(0, 20, 0, 10)
   TabBtn.Text = TabText
-  TabBtn.TextColor3 = 10.000
+  TabBtn.TextSize = 10.000
   TabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
   TabBtn.Font =Enum.Font.GothamSemibold
   
