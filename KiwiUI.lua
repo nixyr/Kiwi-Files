@@ -21,6 +21,7 @@ local MinimizeIcon = Instance.new("ImageLabel")
 local UserInputService = game:GetService("UserInputService")
 local Camera = workspace:WaitForChild("Camera")
 local minimized = false
+local mininizedebounce = false
 
 --[Drag Script]--
 local DragMousePosition
@@ -98,13 +99,13 @@ KiwiClose.Visible = true
 KiwiClose.AutoButtonColor = false
 KiwiClose.MouseButton1Click:Connect(function()
 	MainFrame:TweenSize(
-		UDim2.new(0, 420, 0, 0),
+		UDim2.new(0, 0, 0, 0),
 		Enum.EasingDirection.Out,
 		Enum.EasingStyle.Bounce,
 		.5,
 		true
 	)
-	wait(.5)
+	wait(.3)
 	SectionFrame.Visible = false
 	PageFrame.Visible = false
 	KiwiLibrary:Destroy()
@@ -131,6 +132,8 @@ KiwiMinimize.TextColor3 = Color3.fromRGB(190, 190, 190)
 KiwiMinimize.Visible = true
 KiwiMinimize.AutoButtonColor = false
 KiwiMinimize.MouseButton1Click:Connect(function()
+if not mininizedebounce then
+mininizedebounce = true
 	if minimized == false then
 	MainFrame:TweenSize(
 		UDim2.new(0, 420, 0, 30),
@@ -150,10 +153,13 @@ KiwiMinimize.MouseButton1Click:Connect(function()
 		.5,
 		true
 	)
-	wait(.4)
+	wait(.2)
 	SectionFrame.Visible = true
 	PageFrame.Visible = true
 	minimized = false
+	wait(1)
+	mininizedebounce = false
+	end
 	end
 	end)
 
@@ -168,6 +174,7 @@ MinimizeIcon.ImageColor3 = Color3.fromRGB(190, 190, 190)
 MinimizeIcon.Visible = true
 
 PageFrame.Name = "KiwiPages"
+PageFrame.Active = true
 PageFrame.Parent = MainFrame
 PageFrame.BorderSizePixel = 0
 PageFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
@@ -175,7 +182,7 @@ PageFrame.Position = UDim2.new(0, 305, 0, 40)
 PageFrame.Size = UDim2.new(0, 110, 0, 230)
 PageFrame.ZIndex = 2
 PageFrame.ScrollingDirection = Enum.ScrollingDirection.Y
-PageFrame.ScrollBarThickness = 0
+PageFrame.ScrollBarThickness = 1
 
 KiwiPageCorner.Name = "Corner"
 KiwiPageCorner.Parent = PageFrame
