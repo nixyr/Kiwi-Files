@@ -227,6 +227,7 @@ NewPage.Name = TabText
 NewPage.Parent = PageFolder
 NewPage.Active = true
 NewPage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+NewPage.Position = UDim2.new(0, 0, 0, 10)
 NewPage.BackgroundTransparency = 1.000
 NewPage.BorderSizePixel = 0
 NewPage.Size = UDim2.new(1, 0, 1, 0)
@@ -291,13 +292,17 @@ sectionInnerList.Padding = UDim.new(0, 3)
 
 SectionName = SectionName or "Kiwi Section"
 
-TabFrame.Name = "TabFrame"
+TabFrame.Name = TabText.." Tab"
 TabFrame.Parent = NewPage
 TabFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TabFrame.BackgroundTransparency = 1.000
+TabFrame.BorderSizePixel = 0
 TabFrame.Position = UDim2.new(0, 0, 7.08064434e-08, 0)
 TabFrame.Size = UDim2.new(1, 0, 1, 0)
 TabFrame.ZIndex = 2
 TabFrame.ClipsDescendants = true
+TabFrame.ScrollingDirection = Enum.ScrollingDirection.Y
+TabFrame.ScrollBarThickness = 0
 
 MainCorner.CornerRadius = UDim.new(0, 5)
 MainCorner.Name = "MainCorner"
