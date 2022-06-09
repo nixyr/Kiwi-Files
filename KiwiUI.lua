@@ -285,7 +285,7 @@ function SectionHandler:NewSection(SectionName)
 	SectionName = SectionName or "Kiwi Section"
 	 
 	TabFrame.Name = "TabFrame"
-	TabFrame.Parent = newPage
+	TabFrame.Parent = NewPage
 	TabFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 	TabFrame.Position = UDim2.new(0, 0, 7.08064434e-08, 0)
 	TabFrame.Size = UDim2.new(1, 0,0, 36)
