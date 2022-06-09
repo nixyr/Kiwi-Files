@@ -98,13 +98,15 @@ end)
   KiwiClose.AutoButtonColor = false
   KiwiClose.MouseButton1Click:Connect(function()
         MainFrame:TweenSize(
-        UDim2.new(0, 0, 0, 0),
+        UDim2.new(0, 420, 0, 0),
         Enum.EasingDirection.Out,
-        Enum.EasingStyle.Quart,
+        Enum.EasingStyle.Bounce,
         .5,
         true
       )
       wait(.6)
+      SectionFrame.Visible = false
+			PageFrame.Visible = false
       KiwiLibrary:Destroy()
 end)
   
@@ -133,7 +135,7 @@ end)
         MainFrame:TweenSize(
         UDim2.new(0, 420, 0, 30),
         Enum.EasingDirection.Out,
-        Enum.EasingStyle.Quart,
+        Enum.EasingStyle.Bounce,
         .5,
         true
       )
@@ -144,10 +146,11 @@ end)
      MainFrame:TweenSize(
         UDim2.new(0, 420, 0, 280),
         Enum.EasingDirection.Out,
-        Enum.EasingStyle.Quart,
+        Enum.EasingStyle.Bounce,
         .5,
         true
       )
+      wait(.5)
       SectionFrame.Visible = true
 			PageFrame.Visible = true
       minimized = false
@@ -263,7 +266,6 @@ end
     TextColor3 = Color3.fromRGB(255, 255, 255)
   }):Play()
   end)
- 
  
 local SectionHandler = {}
 
