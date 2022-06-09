@@ -77,6 +77,7 @@ end)
   SectionFrame.Name = "KiwiSectionFrame"
   SectionFrame.Parent = MainFrame
   SectionFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+  SectionFrame.Visible = false
   SectionFrame.Position = UDim2.new(0, 10, 0, 70)
   SectionFrame.Size = UDim2.new(0, 400, 0, 200)
   
@@ -135,6 +136,8 @@ end)
         .5,
         true
       )
+      SectionFrame.Visible = false
+			PageFrame.Visible = false
       minimized = true
    else
      MainFrame:TweenSize(
@@ -144,6 +147,8 @@ end)
         .5,
         true
       )
+      SectionFrame.Visible = true
+			PageFrame.Visible = true
       minimized = false
  end
 end)
@@ -190,7 +195,7 @@ function TabHandler:NewTab(TabText)
   TabBtn.Text = TabText
   TabBtn.TextSize = 10.000
   TabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-  TabBtn.Font =Enum.Font.GothamSemibold
+  TabBtn.Font = Enum.Font.GothamSemibold
   
   TabHandlerFrame.Name = TabText.."Section"
   TabHandlerFrame.Parent = SectionFrame
@@ -229,9 +234,6 @@ end)
     play("rbxassetid://1412830636")
 end)
  
- 
- 
-  
 local ItemHandler = {}
   
 function ItemHandler:NewButton(btntext, callback)
