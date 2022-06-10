@@ -11,12 +11,15 @@ local MainFrameCorner = Instance.new("UICorner")
 local TopBarCorner = Instance.new("UICorner")
 local KiwiPageCorner = Instance.new("UICorner")
 local SectionCorner = Instance.new("UICorner")
+local PageStroke = Instance.new("UIStroke")
+local SectionStroke = Instance.new("UIStroke")
 local UIListLayout = Instance.new("UIListLayout")
 local PageFolder = Instance.new("Folder")
 local KiwiClose = Instance.new("TextButton")
 local KiwiMinimize = Instance.new("TextButton")
 local CloseIcon = Instance.new("ImageLabel")
 local MinimizeIcon = Instance.new("ImageLabel")
+local WindowTitle = Instance.new("TextLabel")
 
 --[Locals]--
 local UserInputService = game:GetService("UserInputService")
@@ -76,6 +79,19 @@ TopBarCorner.Name = "Corner"
 TopBarCorner.Parent = TopBar
 TopBarCorner.CornerRadius = UDim.new(0, 5)
 
+WindowTitle.Name = title
+WindowTitle.Parent = TopBar
+WindowTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+WindowTitle.BackgroundTransparency = 1
+WindowTitle.Position = UDim2.new(0, 10, 0, 7)
+WindowTitle.TextXAlignment = Enum.TextXAlignment.Left
+WindowTitle.Size = UDim2.new(0, 15, 0, 15)
+WindowTitle.TextColor3 = Color3.fromRGB(90, 90, 90)
+WindowTitle.Font = Enum.Font.GothamBold
+WindowTitle.Text = title
+WindowTitle.ZIndex = 2
+WindowTitle.TextSize = 15.000
+
 SectionFrame.Name = "KiwiSectionFrame"
 SectionFrame.Parent = MainFrame
 SectionFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -99,7 +115,7 @@ KiwiClose.Visible = true
 KiwiClose.AutoButtonColor = false
 KiwiClose.MouseButton1Click:Connect(function()
 	KiwiLibrary:Destroy()
-end)
+	end)
 
 CloseIcon.Name = "CloseIcon"
 CloseIcon.Parent = KiwiClose
@@ -126,23 +142,25 @@ KiwiMinimize.MouseButton1Click:Connect(function()
 	MainFrame:TweenSize(
 		UDim2.new(0, 420, 0, 30),
 		Enum.EasingDirection.Out,
-		Enum.EasingStyle.Bounce,
+		Enum.EasingStyle.Quint,
 		.5,
 		true
 	)
 	SectionFrame.Visible = false
 	PageFrame.Visible = false
+	PageFrameMain.Visible = false
 	minimized = true
 	else
 		MainFrame:TweenSize(
 		UDim2.new(0, 420, 0, 280),
 		Enum.EasingDirection.Out,
-		Enum.EasingStyle.Bounce,
+		Enum.EasingStyle.Quart,
 		.5,
 		true
 	)
-	wait(.2)
+	wait(.192928292)
 	SectionFrame.Visible = true
+	PageFrameMain.Visible = true
 	PageFrame.Visible = true
 	minimized = false
 	end
@@ -162,7 +180,7 @@ PageFrameMain.Name = "MainPage"
 PageFrameMain.Parent = MainFrame
 PageFrameMain.Size = UDim2.new(0, 110, 0, 230)
 PageFrameMain.Position = UDim2.new(0, 305, 0, 40)
-PageFrameMain.BackgroundColor3 = Color3.fromRGB(30, e0, 30)
+PageFrameMain.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 
 PageFrame.Name = "KiwiPages"
 PageFrame.Active = true
@@ -171,10 +189,10 @@ PageFrame.BorderSizePixel = 0
 PageFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 PageFrame.BackgroundTransparency = 1.000
 PageFrame.Position = UDim2.new(0, 0, 0, 10)
-PageFrame.Size = UDim2.new(1, 0, 0, 1)
+PageFrame.Size = UDim2.new(1, 0, 1, 0)
 PageFrame.ZIndex = 2
 PageFrame.ScrollingDirection = Enum.ScrollingDirection.Y
-PageFrame.ScrollBarThickness = 1
+PageFrame.ScrollBarThickness = 0
 
 KiwiPageCorner.Name = "Corner"
 KiwiPageCorner.Parent = PageFrameMain
@@ -186,7 +204,7 @@ UIListLayout.Padding = UDim.new(0, 5)
 
 local TabHandler = {}
 
-function TabHandler:NewTab(TabText)
+function TabHandler:Tab(TabText)
 local tabBtnFrame = Instance.new("Frame")
 local tabBtn = Instance.new("TextButton")
 
@@ -206,10 +224,10 @@ tabBtn.BackgroundTransparency = 1.000
 tabBtn.Position = UDim2.new(0.245534033, 0, 0, 0)
 tabBtn.Size = UDim2.new(0, 101, 0, 20)
 tabBtn.ZIndex = 2
-tabBtn.Font = Enum.Font.GothamBold
+tabBtn.Font = Enum.Font.GothamSemibold
 tabBtn.Text = TabText
-tabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-tabBtn.TextSize = 10.000
+tabBtn.TextColor3 = Color3.fromRGB(56, 56, 56)
+tabBtn.TextSize = 12.000
 tabBtn.TextXAlignment = Enum.TextXAlignment.Left
 
 local NewPage = Instance.new("ScrollingFrame")
@@ -269,7 +287,7 @@ tabBtn.MouseButton1Click:Connect(function()
 
 local SectionHandler = {}
 
-function SectionHandler:NewSection(SectionName)
+function SectionHandler:Section(SectionName)
 
 local TabFrame = Instance.new("ScrollingFrame")
 local MainCorner = Instance.new("UICorner")
@@ -302,23 +320,27 @@ MainCorner.Parent = TabFrame
 
 local ItemHandler = {}
 
-function ItemHandler:NewButton(btntext, callback)
+function ItemHandler:Button(ButtonText, callback)
 local Button = Instance.new("TextButton")
 local ButtonCorner = Instance.new("UICorner")
 local UIItemList = Instance.new("UIListLayout")
+local ButtonInfo = Instance.new("TextLabel")
+local ButtonImage = Instance.new("ImageLabel")
 local Debounce = false
+local debounce1 = false
+local isHovering = false
 
-btntext = btntext or "KiwiButton"
+ButtonText = ButtonText or "KiwiButton"
 callback = callback or function() end
 
-Button.Name = "KiwiButton "..btntext
+Button.Name = ButtonText
 Button.Parent = TabFrame
-Button.BackgroundColor3 = Color3.fromRGB(120, 90., 60)
+Button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 Button.Size = UDim2.new(0, 280, 0, 30)
 Button.AutoButtonColor = false
 Button.TextColor3 = Color3.fromRGB(255, 255, 255)
 Button.ZIndex = 2
-Button.Text = btntext
+Button.Text = ""
 Button.Font = Enum.Font.GothamBold
 Button.TextSize = 10
 Button.MouseButton1Click:Connect(function()
@@ -329,12 +351,167 @@ Button.MouseButton1Click:Connect(function()
 	Debounce = false
 	end
 	end)
+Button.MouseButton1Up:Connect(function()
+	Button:TweenSize(UDim2.new(0, 280,0, 30), "InOut", "Quint", 0.18, true)
+	game.TweenService:Create(Button, TweenInfo.new(0.18, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+		BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+		TextColor3 = Color3.fromRGB(255, 255, 255)
+	}):Play()
+	end)
 
-ButtonCorner.CornerRadius = UDim.new(0, 3)
+Button.MouseButton1Down:Connect(function()
+	if not debounce1 then
+	debounce1 = true
+	Button:TweenSize(UDim2.new(0, 269,0, 30), "InOut", "Quint", 0.18, true)
+	game.TweenService:Create(Button, TweenInfo.new(0.18, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+		BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+		TextColor3 = Color3.fromRGB(190, 190, 190)
+	}):Play()
+	wait(.7)
+	debounce1 = false
+	end
+	end)
+
+ButtonInfo.Name = ButtonText
+ButtonInfo.Parent = Button
+ButtonInfo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ButtonInfo.BackgroundTransparency = 1
+ButtonInfo.BorderSizePixel = 0
+ButtonInfo.Text = ButtonText
+ButtonInfo.TextColor3 = Color3.fromRGB(255,255, 255)
+ButtonInfo.Font = Enum.Font.GothamBold
+ButtonInfo.Position = UDim2.new(0, 10, 0, 2)
+ButtonInfo.TextXAlignment = Enum.TextXAlignment.Left
+ButtonInfo.TextSize = 10
+ButtonInfo.Size = UDim2.new(0, 250, 0, 28)
+
+ButtonImage.Name = "ClickImage"
+ButtonImage.Parent = Button
+ButtonImage.Size = UDim2.new(0, 20, 0, 20)
+ButtonImage.Position = UDim2.new(0, 250, 0, 5)
+ButtonImage.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+ButtonImage.BackgroundTransparency = 1
+ButtonImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
+ButtonImage.Image = "rbxassetid://7839505809"
+ButtonImage.Visible = true
+
 ButtonCorner.Name = "Corner"
 ButtonCorner.Parent = Button
+ButtonCorner.CornerRadius = UDim.new(0, 3)
 
 end
+
+function ItemHandler:Toggle(ToggleText, callback)
+local switchactions = {}
+local ToggleButton = Instance.new("TextButton")
+local ToggleCorner = Instance.new("UICorner")
+local Switch1 = Instance.new("ImageLabel")
+local Switch2 = Instance.new("ImageLabel")
+
+local ToggleInfo = Instance.new("TextLabel")
+local debounce = false
+ToggleText = ToggleText or "KiwiToggle"
+callback = callback or function() end
+
+ToggleButton.Name = ToggleText
+ToggleButton.Parent = TabFrame
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleButton.Size = UDim2.new(0, 280, 0, 30)
+ToggleButton.AutoButtonColor = false
+ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleButton.ZIndex = 2
+ToggleButton.Text = ""
+ToggleButton.Font = Enum.Font.GothamBold
+
+Switch1.Name = "Frame"
+Switch1.Parent = ToggleButton
+Switch1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Switch1.BackgroundTransparency = 1.000
+Switch1.Position = UDim2.new(0, 245, 0, 8)
+Switch1.Size = UDim2.new(0, 27, 0, 13)
+Switch1.Image = "rbxassetid://3570695787"
+Switch1.ImageColor3 = Color3.fromRGB(26,26,26)
+Switch1.ScaleType = Enum.ScaleType.Slice
+Switch1.SliceCenter = Rect.new(100, 100, 100, 100)
+Switch1.SliceScale = 0.250
+
+Switch2.Name = "Frame_2"
+Switch2.Parent = Switch1
+Switch2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Switch2.BackgroundTransparency = 1.000
+Switch2.Position = UDim2.new(0, 3, 0.150000006, 0)
+Switch2.Size = UDim2.new(0, 9, 0, 9)
+Switch2.Image = "rbxassetid://3570695787"
+Switch2.ScaleType = Enum.ScaleType.Slice
+Switch2.SliceCenter = Rect.new(100, 100, 100, 100)
+Switch2.SliceScale = 0.250
+
+ToggleCorner.Name = "Corner"
+ToggleCorner.Parent = ToggleButton
+ToggleCorner.CornerRadius = UDim.new(0, 3)
+
+ToggleInfo.Name = ToggleText
+ToggleInfo.Parent = ToggleButton
+ToggleInfo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ToggleInfo.BackgroundTransparency = 1
+ToggleInfo.BorderSizePixel = 0
+ToggleInfo.Text = ToggleText
+ToggleInfo.TextColor3 = Color3.fromRGB(255,255, 255)
+ToggleInfo.Font = Enum.Font.GothamBold
+ToggleInfo.Position = UDim2.new(0, 10, 0, 2)
+ToggleInfo.TextXAlignment = Enum.TextXAlignment.Left
+ToggleInfo.TextSize = 10
+ToggleInfo.Size = UDim2.new(0, 250, 0, 28)
+
+local togstate = false
+local toolight = true
+
+function trigger()
+togstate = not togstate
+callback(togstate)
+if togstate then
+Switch1.ImageColor3 = Color3.fromRGB(255, 255, 255)
+if toolight then
+Switch2.ImageColor3 = Color3.fromRGB(26,26,26)
+end
+Switch2.Position = UDim2.new(0.59, 0, 0.150000006, 0)
+else
+	Switch1.ImageColor3 = Color3.fromRGB(26,26,26)
+if toolight then
+Switch2.ImageColor3 = Color3.fromRGB(255, 255, 255)
+end
+Switch2.Position = UDim2.new(0, 3, 0.150000006, 0)
+end
+end
+
+ToggleButton.MouseButton1Click:Connect(trigger)
+
+function switchactions:Set(state)
+togstate = state
+if togstate then
+Switch1.ImageColor3 = Color3.fromRGB(176, 148, 255)
+if toolight then
+Switch2.ImageColor3 = Color3.fromRGB(26,26,26)
+end
+Switch2.Position = UDim2.new(0.59, 0, 0.150000006, 0)
+else
+	Switch1.ImageColor3 = Color3.fromRGB(26,26,26)
+if toolight then
+Switch2.ImageColor3 = Color3.fromRGB(176, 148, 255)
+end
+Switch2.Position = UDim2.new(0, 3, 0.150000006, 0)
+end
+callback(togstate)
+end
+return switchactions
+
+end
+
+function ItemHandler:Dropdown(DropdownText)
+
+
+end
+
 return ItemHandler
 end
 return SectionHandler
